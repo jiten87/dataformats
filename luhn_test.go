@@ -7,9 +7,9 @@ import (
 
 type (
 	validationTest struct {
-		number   string
-		expectOK bool
-		err      error
+		number  string
+		isValid bool
+		err     error
 	}
 	calculateLuhnAndAdd struct {
 		number      string
@@ -44,8 +44,9 @@ func Test_ValidateLuhn(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run("luhn validation test cases for "+tc.number, func(t *testing.T) {
-			res, _ := ValidateLuhn(([]byte)(tc.number))
-			require.Equal(t, tc.expectOK, res)
+			res, err := ValidateLuhn(([]byte)(tc.number))
+			require.Nil(t, err)
+			require.Equal(t, tc.isValid, res)
 		})
 
 	}
