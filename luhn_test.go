@@ -11,6 +11,10 @@ type (
 		expectOK bool
 		err      error
 	}
+	calculateLuhnAndAdd struct {
+		number      string
+		finalNumber string
+	}
 )
 
 func Test_ValidateLuhn(t *testing.T) {
@@ -51,4 +55,22 @@ func Test_ValidateLuhn(t *testing.T) {
 		require.NotNil(t, err)
 		require.Error(t, err, "invalid input: not a number")
 	})
+}
+
+func Test_CalculateAndAddLuhnDigit(t *testing.T) {
+	testCases := []calculateLuhnAndAdd{
+		{"12345", "123455"},
+		{"111122223333444", "1111222233334444"},
+		{"7992739871", "79927398713"},
+		{"37465234695678234695782369485769236485736847536", "374652346956782346957823694857692364857368475368"},
+	}
+
+	for _, tc := range testCases {
+		t.Run("calculateLuhnAndAdd test cases for "+tc.number, func(t *testing.T) {
+			luhnData, err := CalculateAndAddLuhnDigit(([]byte)(tc.number))
+			require.Nil(t, err)
+			require.Equal(t, tc.finalNumber, string(luhnData))
+		})
+
+	}
 }
