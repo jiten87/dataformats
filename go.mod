@@ -1,4 +1,4 @@
-module dataformats
+module github.com/jiten87/dataformats
 
 go 1.21
 
