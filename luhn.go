@@ -25,7 +25,7 @@ func CalculateAndAddLuhnDigit(data []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	luhnDigit := 10 - sum%10
+	luhnDigit := (sum * 9) % 10
 
 	return ([]byte)(string(data) + strconv.Itoa(luhnDigit)), nil
 }
